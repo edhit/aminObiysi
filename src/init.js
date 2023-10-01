@@ -73,46 +73,43 @@ exports.viewed_n_times = async (data = []) => {
 
 /*
     token
+    businessId
     file
-    sheets: [{
-        sheet: 0,
-        field_sku: 'B',
-        priority: 0
-    }]
 */
 exports.offer_mappings_update = async (data = '') => {
     const token = process.env.token
 
+    const businessId = process.env.businessId // номер магазина в Яндекс (берем с Yandex)
+
     const file = excelToJson({
         sourceFile: process.env.file + '.xlsx', // Указать путь до файла с данными от поставщика
+        columnToKey: {
+            A: 'name',
+            B: 'sku',
+            C: 'barcode',
+            D: 'count',
+            E: 'price',
+            F: 'balance',
+            G: 'length',
+            H: 'width',
+            I: 'height',
+            J: 'weight',
+            K: 'tomonths'
+        }
     });
-
-    const sheets = [{
-        sheet: 0,
-        field_sku: 'B',
-        priority: 0
-    }]
-
-    const nameSheets = getNameSheets(file, sheets)
-    if (nameSheets == false) return false
 
     async function start() {
         let settings = {
-            nameSheets: nameSheets,
             file: file,
             token: token,
+            businessId: businessId
         }
 
-        let generalSheets = getGeneralSheets(settings);
-        if (generalSheets == false) return false
-
-        let sku = getSKU(settings, generalSheets);
-        if (sku == false) return false
+        console.log(file);
 
         let marketProduct = await updateMarketProduct(settings, sku)
         if (marketProduct == false) return false
 
-        console.log(sku);
     }
 
     let func_start = await start()
@@ -120,4 +117,4 @@ exports.offer_mappings_update = async (data = '') => {
     else return true
 }
 
-this.offer_mappings_update()
+this.viewed_n_times()
