@@ -34,7 +34,7 @@ exports.viewed_n_times = async (data = []) => {
 
     const sheets = [{
         sheet: 0,
-        field_sku: 'B',
+        field_sku: process.env.field_sku,
         priority: 0
     }]
 
