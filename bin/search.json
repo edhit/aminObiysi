@@ -1,0 +1,26 @@
+{
+	"params": [
+		{
+			"brand": "",
+			"businessId": 15869431,
+			"category": [],
+			"contentStatus": "",
+			"enableSaasCreationTsSortRelevance": true,
+			"fullnessCriterias": "",
+			"mappingChangePeriod": "",
+			"mappingChecking": "",
+			"marketCategoryIdList": [],
+			"offerGroup": [],
+			"offerNameOrSku": "",
+			"pageNumber": 1,
+			"perPage": 20,
+			"sort": {
+				"isAsc": false,
+				"sort": ""
+			},
+			"useShaping": true
+		}
+	],
+	"path": "/business/15869431/assortment?campaignId=27338002&activeTab=offers&openAddDrawer=true"
+}
+POST
