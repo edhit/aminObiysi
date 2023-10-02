@@ -1,3 +1,5 @@
+const { isPositiveInteger } = require("./common_utils");
+
 exports.getNameSheets = (file, sheets) => {
     try {
         let nameSheets = []
@@ -66,7 +68,7 @@ exports.getSKU = (settings, generalSheets) => {
             }
         }
         for (let i = 0; i < settings.file[settings.nameSheets[file_selected].name].length; i++) {
-            if (typeof parseInt(settings.file[settings.nameSheets[file_selected].name][i][sku_field]) == 'number' && !isNaN(parseInt(settings.file[settings.nameSheets[file_selected].name][i][sku_field]))) {
+            if (isPositiveInteger(settings.file[settings.nameSheets[file_selected].name][i][sku_field])) {
                 sku.push(parseInt(settings.file[settings.nameSheets[file_selected].name][i][sku_field]));
             }
         }

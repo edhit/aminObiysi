@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const xlsx = require('json-as-xlsx');
-const { logger } = require("./common_utils");
+const { logger, separator } = require("./common_utils");
 
 exports.searchMarketBestPriceBySku = async (settings, sku) => {
     try {
@@ -28,11 +28,9 @@ exports.searchMarketBestPriceBySku = async (settings, sku) => {
                 }
 
                 request = await axios.request(options)
-
                 let data = request.data.data.result
 
-                // console.log(request.data.data.result);
-                console.log('#' + (i + 1) + ' / ' + sku.length + '________________________________________________');
+                separator(i + 1, sku)
 
                 for (let l = 0; l < data.length; l++) {
                     for (let k = 0; k < data[l].model.reasonsToBuy.length; k++) {
@@ -128,6 +126,8 @@ exports.generateExcelFile = (prepare, layout, name_file, limit) => {
         };
 
         xlsx(data, settings);
+
+        console.log('ФАЙЛ СОЗДАН: ' + name_file + ".xlsx");
     } catch (error) {
         console.log(error);
         return false

@@ -105,9 +105,7 @@ exports.offer_mappings_update = async (data = '') => {
             businessId: businessId
         }
 
-        console.log(file);
-
-        let marketProduct = await updateMarketProduct(settings, sku)
+        let marketProduct = await updateMarketProduct(settings)
         if (marketProduct == false) return false
 
     }
