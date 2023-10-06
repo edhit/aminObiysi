@@ -1,5 +1,5 @@
 const { default: axios } = require("axios");
-const { sleep, logger, isPositiveInteger, separator } = require("./common_utils");
+const { sleep, isPositiveInteger, logs, request_yandex } = require("./common_utils");
 
 exports.updateMarketProduct = async (settings) => {
     try {
@@ -25,6 +25,7 @@ exports.updateMarketProduct = async (settings) => {
                                 [{
                                     offer: {
                                         offerId: product[i].sku,
+                                        barcodes: [product[i].barcode],
                                         weightDimensions: {
                                             length: product[i].length,
                                             width: product[i].width,
@@ -36,35 +37,62 @@ exports.updateMarketProduct = async (settings) => {
                                             currencyId: "RUR"
                                         }
                                     },
-                                    currencyId: {
+                                    mapping: {
                                         marketSku: product[i].sku
                                     }
                                 }]
                         }
                     }
-
+                    // 16:02 было отправлено на проверку
 
                     request = await axios.request(options)
 
-                    separator(i + 1, product)
 
+                    logs({
+                        type: 'debug',
+                        show: settings.show_error,
+                        message: '#' + (i + 1) + ' / ' + product.length
+                    });
+                    // console.log(request);
                     if (request.status == 200) {
-                        console.log('SUCCESS: SKU: ' + product[i].sku);
+                        logs({
+                            type: 'info',
+                            show: settings.show_error,
+                            message: 'SUCCESS SKU: ' + product[i].sku
+                        });
+                    } else {
+                        logs({
+                            type: 'warning',
+                            show: settings.show_error,
+                            message: 'WARNING SKU: ' + product[i].sku
+                        });
                     }
-                    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
                     sleep(1)
                 }
             } catch (error) {
-                let log = logger(error)
+                console.log(error.response.data);
+                let log = request_yandex(error, settings.show_error)
                 if (log == false) return false
 
-                console.log('error: SKU: ' + product[i].sku);
-                console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                logs({
+                    type: 'error',
+                    show: settings.show_error,
+                    message: 'ERROR SKU: ' + product[i].sku
+                });
             }
         }
-        console.log("ПРОГРАММА ЗАВЕРШИЛА РАБОТУ");
+
+        logs({
+            type: 'sponsor',
+            show: settings.show_error,
+            message: 'ПРОГРАММА ЗАВЕРШИЛА РАБОТУ'
+        });
     } catch (error) {
-        console.log(error);
+        logs({
+            type: 'error',
+            show: settings.show_error,
+            message: 'Проблема с чтением файла. Прикрепите файл, который создала программа'
+        });
         return false
     }
 }

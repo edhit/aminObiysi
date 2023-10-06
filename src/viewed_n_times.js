@@ -1,6 +1,6 @@
 const { default: axios } = require("axios");
 const xlsx = require('json-as-xlsx');
-const { logger, separator } = require("./common_utils");
+const { request_yandex, logs } = require("./common_utils");
 
 exports.searchMarketBestPriceBySku = async (settings, sku) => {
     try {
@@ -30,29 +30,53 @@ exports.searchMarketBestPriceBySku = async (settings, sku) => {
                 request = await axios.request(options)
                 let data = request.data.data.result
 
-                separator(i + 1, sku)
+                logs({
+                    type: 'debug',
+                    show: settings.show_error,
+                    message: '#' + (i + 1) + ' / ' + sku.length
+                });
 
                 for (let l = 0; l < data.length; l++) {
                     for (let k = 0; k < data[l].model.reasonsToBuy.length; k++) {
                         if (data[l].model.reasonsToBuy[k].id == 'viewed_n_times') {
-                            result.push({ sku: data[l].model.skuId, barcode: sku[i], viewed_n_times: data[l].model.reasonsToBuy[k].value })
-                            console.log('SUCCESS: SKU: ' + sku[i]);
+                            // console.log(data[l]);
+                            // console.log(data[l].model.reasonsToBuy[k].value);
+                            result.push({ sku: data[l].sku, barcode: sku[i], viewed_n_times: data[l].model.reasonsToBuy[k].value })
+                            // console.log(result);
+                            logs({
+                                type: 'info',
+                                show: settings.show_error,
+                                message: 'SUCCESS SKU: ' + sku[i]
+                            });
+                        } else {
+                            logs({
+                                type: 'warning',
+                                show: settings.show_error,
+                                message: 'WARNING SKU: ' + sku[i]
+                            });
                         }
                     }
                 }
-                console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             } catch (error) {
-                let log = logger(error)
+                let log = request_yandex(error, settings.show_error)
                 if (log == false) return false
 
-                console.log('error: SKU: ' + sku[i]);
-                console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+                logs({
+                    type: 'error',
+                    show: settings.show_error,
+                    message: 'ERROR SKU: ' + sku[i]
+                });
             }
         }
 
         return result
     } catch (error) {
         console.log(error);
+        logs({
+            type: 'error',
+            show: settings.show_error,
+            message: error
+        });
         return false
     }
 }
@@ -62,22 +86,26 @@ exports.prepareExcelFile = (settings, layout, data) => {
         for (let i = 0; i < data.length; i++) {
             for (let k = 0; k < settings.file[layout[0].name].length; k++) {
                 if (data[i].barcode == settings.file[layout[0].name][k][layout[0].field_sku]) {
-                    settings.file[layout[0].name][k]['viewed_n_times'] = data[i].viewed_n_times
-                    settings.file[layout[0].name][k]['sku'] = data[i].sku
+                    settings.file[layout[0].name][k].viewed_n_times = data[i].viewed_n_times
+                    settings.file[layout[0].name][k].sku = parseInt(data[i].sku.replace(/[^0-9\s]/g, ''));
+                    // console.log(settings.file[layout[0].name]);
                 }
             }
         }
 
-        // console.log(settings.file);
-
+        // console.log(settings.file[layout[0].name]);
         return settings
     } catch (error) {
-        console.log(error);
+        logs({
+            type: 'error',
+            show: settings.show_error,
+            message: error
+        });
         return false
     }
 }
 
-exports.generateExcelFile = (prepare, layout, name_file, limit) => {
+exports.generateExcelFile = (settings, prepare, layout, name_file, limit) => {
     try {
         let data = [
             {
@@ -116,20 +144,26 @@ exports.generateExcelFile = (prepare, layout, name_file, limit) => {
                     tomonths: prepare.file[layout[0].name][i]['viewed_n_times']
                 }
                 data[0].content.push(obj);
-                // console.log(obj);
             }
         }
-        // console.log(data);
 
         let settings = {
             fileName: name_file, // Name of the resulting spreadsheet
         };
 
-        xlsx(data, settings);
+        logs({
+            type: 'sponsor',
+            show: settings.show_error,
+            message: 'ПРОГРАММА ЗАВЕРШИЛА РАБОТУ'
+        });
 
-        console.log('ФАЙЛ СОЗДАН: ' + name_file + ".xlsx");
+        xlsx(data, settings);
     } catch (error) {
-        console.log(error);
+        logs({
+            type: 'error',
+            show: settings.show_error,
+            message: error
+        });
         return false
     }
 }

@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "@ptkdev/logger": "^1.8.0",
     "axios": "^1.5.0",
     "convert-excel-to-json": "^1.7.0",
     "dotenv": "^16.3.1",
+    "inquirer": "^8.2.6",
     "json-as-xlsx": "^2.5.3",
     "json-excel-style": "^1.0.0",
     "node-fetch": "^2.7.0",
@@ -14,7 +16,6 @@
   "bin": {
     "yandex": "bin/bin.js"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

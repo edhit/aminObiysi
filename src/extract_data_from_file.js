@@ -18,7 +18,11 @@ exports.getNameSheets = (file, sheets) => {
 
         return nameSheets
     } catch (error) {
-        console.log(error);
+        logs({
+            type: 'error',
+            show: settings.show_error,
+            message: error
+        });
         return false
     }
 }
@@ -47,7 +51,11 @@ exports.getGeneralSheets = (settings) => {
 
         return generalSheets;
     } catch (error) {
-        console.log(error);
+        logs({
+            type: 'error',
+            show: settings.show_error,
+            message: error
+        });
         return false
     }
 
@@ -73,11 +81,15 @@ exports.getSKU = (settings, generalSheets) => {
             }
         }
 
-        if (sku.length == 0) throw 'Нет но одного SKU'
+        if (sku.length == 0) throw 'Нет ни одного SKU'
 
         return sku;
     } catch (error) {
-        console.log(error);
+        logs({
+            type: 'error',
+            show: settings.show_error,
+            message: error
+        });
         return false
     }
 }
