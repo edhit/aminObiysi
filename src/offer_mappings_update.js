@@ -25,17 +25,17 @@ exports.updateMarketProduct = async (settings) => {
                                 [{
                                     offer: {
                                         offerId: product[i].sku,
-                                        barcodes: [product[i].barcode],
-                                        weightDimensions: {
-                                            length: product[i].length,
-                                            width: product[i].width,
-                                            height: product[i].height,
-                                            weight: product[i].weight
-                                        },
-                                        purchasePrice: {
-                                            value: product[i].price,
-                                            currencyId: "RUR"
-                                        }
+                                        // barcodes: [product[i].barcode],
+                                        // weightDimensions: {
+                                        //     length: product[i].length,
+                                        //     width: product[i].width,
+                                        //     height: product[i].height,
+                                        //     weight: product[i].weight
+                                        // },
+                                        // purchasePrice: {
+                                        //     value: product[i].price,
+                                        //     currencyId: "RUR"
+                                        // }
                                     },
                                     mapping: {
                                         marketSku: product[i].sku
@@ -43,7 +43,7 @@ exports.updateMarketProduct = async (settings) => {
                                 }]
                         }
                     }
-                    // 16:02 было отправлено на проверку
+                    // 16:09 было отправлено на проверку
 
                     request = await axios.request(options)
 
