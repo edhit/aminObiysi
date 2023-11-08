@@ -91,70 +91,70 @@ exports.viewed_n_times = async (data = '') => {
     token
     businessId
     file
-*/
-exports.offer_mappings_update = async (data = '') => {
-    try {
-        if (data == '') throw 'Не передана никакая информация'
+// */
+// exports.offer_mappings_update = async (data = '') => {
+//     try {
+//         if (data == '') throw 'Не передана никакая информация'
 
-        const token = data.token
+//         const token = data.token
 
-        const businessId = data.businessId // номер магазина в Яндекс (берем с Yandex)
+//         const businessId = data.businessId // номер магазина в Яндекс (берем с Yandex)
 
-        const show_error = data.show_error
+//         const show_error = data.show_error
 
-        const file = excelToJson({
-            sourceFile: data.file + '.xlsx', // Указать путь до файла с данными от поставщика
-            columnToKey: {
-                A: 'name',
-                B: 'sku',
-                C: 'barcode',
-                D: 'count',
-                E: 'price',
-                F: 'balance',
-                G: 'length',
-                H: 'width',
-                I: 'height',
-                J: 'weight',
-                K: 'tomonths'
-            }
-        });
+//         const file = excelToJson({
+//             sourceFile: data.file + '.xlsx', // Указать путь до файла с данными от поставщика
+//             columnToKey: {
+//                 A: 'name',
+//                 B: 'sku',
+//                 C: 'barcode',
+//                 D: 'count',
+//                 E: 'price',
+//                 F: 'balance',
+//                 G: 'length',
+//                 H: 'width',
+//                 I: 'height',
+//                 J: 'weight',
+//                 K: 'tomonths'
+//             }
+//         });
 
-        // if (data.sheets == undefined) throw 'Нет информации о листах'
+//         // if (data.sheets == undefined) throw 'Нет информации о листах'
 
-        const sheets = [{
-            sheet: 0,
-            field_sku: 'sku',
-            priority: 0
-        }]
+//         const sheets = [{
+//             sheet: 0,
+//             field_sku: 'sku',
+//             priority: 0
+//         }]
 
-        const nameSheets = getNameSheets(file, sheets)
-        if (nameSheets == false) return false
+//         const nameSheets = getNameSheets(file, sheets)
+//         if (nameSheets == false) return false
 
-        async function start() {
-            let settings = {
-                nameSheets: nameSheets,
-                file: file,
-                token: token,
-                businessId: businessId,
-                show_error: show_error
-            }
+//         async function start() {
+//             let settings = {
+//                 nameSheets: nameSheets,
+//                 file: file,
+//                 token: token,
+//                 businessId: businessId,
+//                 show_error: show_error
+//             }
 
-            let generalSheets = getGeneralSheets(settings);
-            if (generalSheets == false) return false
+//             let generalSheets = getGeneralSheets(settings);
+//             if (generalSheets == false) return false
 
-            let sku = getSKU(settings, generalSheets);
-            if (sku == false) return false
+//             let sku = getSKU(settings, generalSheets);
+//             if (sku == false) return false
 
-            let marketProduct = await updateMarketProduct(settings)
-            if (marketProduct == false) return false
-        }
+//             let marketProduct = await updateMarketProduct(settings)
+//             if (marketProduct == false) return false
+//         }
 
-        let func_start = await start()
-        if (func_start == false) return false
-        else return true
-    } catch (error) {
-        let log = request_yandex(error, data.show_error)
-        if (log == false) return false
-    }
-}
+//         let func_start = await start()
+//         if (func_start == false) return false
+//         else return true
+//     } catch (error) {
+//         let log = request_yandex(error, data.show_error)
+//         if (log == false) return false
+//     }
+// }
 

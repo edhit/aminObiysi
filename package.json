@@ -8,6 +8,7 @@
     "json-as-xlsx": "^2.5.3",
     "json-excel-style": "^1.0.0",
     "node-fetch": "^2.7.0",
+    "robotjs": "^0.6.0",
     "string-similarity": "^4.0.4"
   },
   "name": "yandex",

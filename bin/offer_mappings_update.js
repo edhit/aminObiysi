@@ -1,5 +1,5 @@
 const { default: axios } = require("axios");
-const { sleep, isPositiveInteger, logs, request_yandex } = require("./common_utils");
+const { sleep, isPositiveInteger, logs, request_yandex } = require("../src/common_utils");
 
 exports.updateMarketProduct = async (settings) => {
     try {

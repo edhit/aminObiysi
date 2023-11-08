@@ -50,6 +50,8 @@ exports.logs = (data) => {
                 break;
         }
     }
+
+    return data
 }
 
 exports.sleep = sec => {

@@ -117,10 +117,6 @@ exports.generateExcelFile = (settings, prepare, layout, name_file, limit) => {
                     { label: 'Мин.отгузка', value: 'count' },
                     { label: 'Цена(опт.)', value: 'price' },
                     { label: 'Balance', value: 'balance' },
-                    { label: 'Длина', value: 'length' },
-                    { label: 'Ширина', value: 'width' },
-                    { label: 'Высота', value: 'height' },
-                    { label: 'Вес', value: 'weight' },
                     { label: 'Просмотры за 2 месяца', value: 'tomonths' },
                 ],
             },
@@ -137,10 +133,6 @@ exports.generateExcelFile = (settings, prepare, layout, name_file, limit) => {
                     count: prepare.file[layout[0].name][i].C,
                     price: prepare.file[layout[0].name][i].D,
                     balance: prepare.file[layout[0].name][i].E,
-                    length: 3,
-                    width: 5,
-                    height: 15,
-                    weight: 0.5,
                     tomonths: prepare.file[layout[0].name][i]['viewed_n_times']
                 }
                 data[0].content.push(obj);

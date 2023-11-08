@@ -1,0 +1,43 @@
+{
+  "offerMappings": [
+    {
+      "offer": {
+        offerId: 34528034,
+        weightDimensions: { length: 3, width: 5, height: 15, weight: 0.5 },
+        purchasePrice: { value: 104.95, currencyId: 'RUR' }
+      },
+      mapping: { marketSku: 34528034 }
+    }
+  ]
+}
+
+{
+  "offerMappings": [
+    {
+      "offer": {
+        "offerId": "string",
+        "params": [
+          {
+            "name": "Wi-Fi",
+            "value": "есть"
+          }
+        ],
+        "purchasePrice": {
+          "value": 0,
+          "currencyId": "RUR"
+        },
+        "additionalExpenses": {
+          "value": 0,
+          "currencyId": "RUR"
+        },
+        "cofinancePrice": {
+          "value": 0,
+          "currencyId": "RUR"
+        }
+      },
+      "mapping": {
+        "marketSku": 0
+      }
+    }
+  ]
+}

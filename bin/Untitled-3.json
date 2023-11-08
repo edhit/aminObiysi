@@ -1,0 +1,88 @@
+{
+    "offerMappings": [
+      {
+        "offer": {
+          "offerId": "string",
+          "name": "Ударная дрель Makita HP1630, 710 Вт",
+          "category": "string",
+          "pictures": [
+            "string"
+          ],
+          "videos": [
+            "string"
+          ],
+          "vendor": "LEVENHUK",
+          "barcodes": [
+            46012300000000
+          ],
+          "description": "string",
+          "manufacturerCountries": [
+            "Россия"
+          ],
+          "weightDimensions": {
+            "length": 65.55,
+            "width": 50.7,
+            "height": 20,
+            "weight": 1.001
+          },
+          "vendorCode": "VNDR-0005A",
+          "tags": [
+            "до 500 рублей"
+          ],
+          "shelfLife": {
+            "timePeriod": 0,
+            "timeUnit": "HOUR",
+            "comment": "string"
+          },
+          "lifeTime": {
+            "timePeriod": 0,
+            "timeUnit": "HOUR",
+            "comment": "string"
+          },
+          "guaranteePeriod": {
+            "timePeriod": 0,
+            "timeUnit": "HOUR",
+            "comment": "string"
+          },
+          "customsCommodityCode": 8517610008,
+          "certificates": [
+            "string"
+          ],
+          "boxCount": 0,
+          "condition": {
+            "type": "PREOWNED",
+            "quality": "PERFECT",
+            "reason": "string"
+          },
+          "type": "DEFAULT",
+          "downloadable": false,
+          "adult": false,
+          "age": {
+            "value": 0,
+            "ageUnit": "YEAR"
+          },
+          "params": [
+            {
+              "name": "Wi-Fi",
+              "value": "есть"
+            }
+          ],
+          "purchasePrice": {
+            "value": 0,
+            "currencyId": "RUR"
+          },
+          "additionalExpenses": {
+            "value": 0,
+            "currencyId": "RUR"
+          },
+          "cofinancePrice": {
+            "value": 0,
+            "currencyId": "RUR"
+          }
+        },
+        "mapping": {
+          "marketSku": 0
+        }
+      }
+    ]
+  }
